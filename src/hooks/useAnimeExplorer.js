@@ -5,6 +5,7 @@ export function useAnimeExplorer() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     setLoading(true)
@@ -22,5 +23,12 @@ export function useAnimeExplorer() {
       })
   }, [])
 
-  return { data, loading, error }
+  const animeList = data?.data ?? []
+  const filteredData = searchTerm
+    ? animeList.filter((anime) =>
+        anime.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+    : animeList
+
+  return { data, loading, error, searchTerm, setSearchTerm, filteredData }
 }
