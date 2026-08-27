@@ -25,10 +25,14 @@ export function useAnimeExplorer() {
 
   const animeList = data?.data ?? []
   const filteredData = searchTerm
-    ? animeList.filter((anime) =>
-        anime.title.toLowerCase().includes(searchTerm.toLowerCase()),
+  ? animeList.filter((anime) => {
+      const term = searchTerm.toLowerCase()
+      return (
+        anime.title.toLowerCase().includes(term) ||
+        anime.title_english?.toLowerCase().includes(term)
       )
-    : animeList
+    })
+  : animeList
 
   return { data, loading, error, searchTerm, setSearchTerm, filteredData }
 }
