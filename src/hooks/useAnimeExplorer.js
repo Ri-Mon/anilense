@@ -25,21 +25,17 @@ export function useAnimeExplorer() {
   }, [])
 
   const animeList = data?.data ?? []
-  const filteredData = animeList.filter((anime) => {
-    const matchesSearch = searchTerm
-      ? (() => {
-          const term = searchTerm.toLowerCase()
-          return (
-            anime.title.toLowerCase().includes(term) ||
-            anime.title_english?.toLowerCase().includes(term)
-          )
-        })()
-      : true
-    const matchesStatus =
-      statusFilter === 'all' || anime.status === statusFilter
+const filteredData = animeList.filter((anime) => {
+  const term = searchTerm.toLowerCase()
+  const matchesSearch =
+    !searchTerm ||
+    anime.title.toLowerCase().includes(term) ||
+    anime.title_english?.toLowerCase().includes(term)
+  const matchesStatus =
+    statusFilter === 'all' || anime.status === statusFilter
 
-    return matchesSearch && matchesStatus
-  })
+  return matchesSearch && matchesStatus
+})
 
   return {
     data,
