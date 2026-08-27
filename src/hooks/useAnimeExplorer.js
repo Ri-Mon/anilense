@@ -6,6 +6,7 @@ export function useAnimeExplorer() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [statusFilter, setStatusFilter] = useState('all')
 
   useEffect(() => {
     setLoading(true)
@@ -24,15 +25,30 @@ export function useAnimeExplorer() {
   }, [])
 
   const animeList = data?.data ?? []
-  const filteredData = searchTerm
-  ? animeList.filter((anime) => {
-      const term = searchTerm.toLowerCase()
-      return (
-        anime.title.toLowerCase().includes(term) ||
-        anime.title_english?.toLowerCase().includes(term)
-      )
-    })
-  : animeList
+  const filteredData = animeList.filter((anime) => {
+    const matchesSearch = searchTerm
+      ? (() => {
+          const term = searchTerm.toLowerCase()
+          return (
+            anime.title.toLowerCase().includes(term) ||
+            anime.title_english?.toLowerCase().includes(term)
+          )
+        })()
+      : true
+    const matchesStatus =
+      statusFilter === 'all' || anime.status === statusFilter
 
-  return { data, loading, error, searchTerm, setSearchTerm, filteredData }
+    return matchesSearch && matchesStatus
+  })
+
+  return {
+    data,
+    loading,
+    error,
+    searchTerm,
+    setSearchTerm,
+    statusFilter,
+    setStatusFilter,
+    filteredData,
+  }
 }
