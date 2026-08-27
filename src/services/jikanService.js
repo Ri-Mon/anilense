@@ -17,11 +17,19 @@ export async function fetchCurrentSeasonAnime() {
     )
   }
 
+  let parsed
+
   try {
-    return await response.json()
+    parsed = await response.json()
   } catch (error) {
     throw new Error('Received an invalid response from the Jikan API', {
       cause: error,
     })
   }
+
+  const uniqueAnime = Array.from(
+    new Map(parsed.data.map((anime) => [anime.mal_id, anime])).values(),
+  )
+
+  return { ...parsed, data: uniqueAnime }
 }
