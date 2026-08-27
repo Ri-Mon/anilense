@@ -1,7 +1,8 @@
 import { useAnimeExplorer } from './hooks/useAnimeExplorer.js'
 
 function App() {
-  const { data, loading, error } = useAnimeExplorer()
+  const { data, loading, error, searchTerm, setSearchTerm, filteredData } =
+    useAnimeExplorer()
 
   if (loading) {
     return <p>Loading anime...</p>
@@ -14,9 +15,15 @@ function App() {
   return (
     <main>
       <h1>AniLense</h1>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        placeholder="Search anime"
+      />
       {data && (
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {data.data.map((anime) => (
+          {filteredData.map((anime) => (
             <li key={anime.mal_id} style={{ marginBottom: '1rem' }}>
               <img
                 src={anime.images.jpg.image_url}
