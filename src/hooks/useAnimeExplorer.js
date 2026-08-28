@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
-import { fetchCurrentSeasonAnime } from '../services/jikanService.js'
+import {
+  fetchCurrentSeasonAnime,
+  fetchSeasonAnime,
+} from '../services/jikanService.js'
 
 export function useAnimeExplorer() {
   const [data, setData] = useState(null)
@@ -7,12 +10,19 @@ export function useAnimeExplorer() {
   const [error, setError] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear())
+  const [selectedSeason, setSelectedSeason] = useState('current')
 
   useEffect(() => {
     setLoading(true)
     setError(null)
 
-    fetchCurrentSeasonAnime()
+    const fetchAnime =
+      selectedSeason === 'current'
+        ? fetchCurrentSeasonAnime()
+        : fetchSeasonAnime(selectedYear, selectedSeason)
+
+    fetchAnime
       .then((responseData) => {
         setData(responseData)
       })
@@ -22,10 +32,10 @@ export function useAnimeExplorer() {
       .finally(() => {
         setLoading(false)
       })
-  }, [])
+  }, [selectedYear, selectedSeason])
 
   const animeList = data?.data ?? []
-const filteredData = animeList.filter((anime) => {
+  const filteredData = animeList.filter((anime) => {
   const term = searchTerm.toLowerCase()
   const matchesSearch =
     !searchTerm ||
@@ -45,6 +55,10 @@ const filteredData = animeList.filter((anime) => {
     setSearchTerm,
     statusFilter,
     setStatusFilter,
+    selectedYear,
+    setSelectedYear,
+    selectedSeason,
+    setSelectedSeason,
     filteredData,
   }
 }
