@@ -55,17 +55,26 @@ function App() {
     {loading && <p>Loading AnimeLense...</p>}
     {error && <p>{error.message}</p>}
     {!loading && !error && data && (
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="grid grid-cols-2 gap-4 p-4 md:grid-cols-3 lg:grid-cols-4">
         {filteredData.map((anime) => (
-          <li key={anime.mal_id} style={{ marginBottom: '1rem' }}>
+          <li
+            key={anime.mal_id}
+            className="overflow-hidden rounded border border-gray-200 bg-white shadow-sm"
+          >
             <img
               src={anime.images.jpg.image_url}
               alt={anime.title}
-              width="150"
+              className="h-64 w-full object-cover"
             />
-            <h2>{anime.title}</h2>
-            <p>Status: {anime.status}</p>
-            <p>Episodes: {anime.episodes ?? 'Unknown'}</p>
+            <div className="space-y-2 p-4">
+              <h2 className="text-lg font-medium text-gray-900">
+                {anime.title}
+              </h2>
+              <p className="text-sm text-gray-600">Status: {anime.status}</p>
+              <p className="text-sm text-gray-600">
+                Episodes: {anime.episodes ?? 'Unknown'}
+              </p>
+            </div>
           </li>
         ))}
       </ul>
