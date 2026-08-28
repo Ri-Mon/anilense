@@ -64,7 +64,7 @@ function App() {
   <img
     src={anime.images.jpg.image_url}
     alt={anime.title}
-    className="h-64 w-full object-cover"
+    className="h-64 w-full bg-black object-contain"
   />
   <div className="flex-1 space-y-2 bg-black p-4">
     <h2 className="text-lg font-medium text-white">
