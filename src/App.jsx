@@ -18,7 +18,7 @@ function App() {
 
   return (
   <main className="mx-auto max-w-6xl px-4 py-6">
-    <h1>AniLense</h1>
+    <h1 className="font-mono">AniLense</h1>
     <div className="sticky top-0 z-10 -mx-4 mb-6 flex flex-wrap gap-3 border-b border-gray-700 bg-transparent px-4 py-4 backdrop-blur">
   <input
     type="text"
