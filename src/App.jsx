@@ -79,6 +79,7 @@ function App() {
   <img
     src={anime.images.jpg.image_url}
     alt={anime.title}
+    loading="lazy"
     className="h-64 w-full bg-black object-contain"
   />
   <div className="flex-1 space-y-2 bg-black p-4">
