@@ -21,13 +21,16 @@ function App() {
     <h1 className="font-mono">AniLense</h1>
     <div className="sticky top-0 z-10 -mx-4 mb-6 flex flex-wrap gap-3 border-b border-gray-700 bg-transparent px-4 py-4 backdrop-blur">
   <input
+    id="anime-search"
     type="text"
     value={searchTerm}
     onChange={(event) => setSearchTerm(event.target.value)}
     placeholder="Search Anime"
     className="flex-1 min-w-[200px] rounded border border-gray-300 bg-gray px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:border-orange-500 focus:outline-none"
   />
+  <label htmlFor="anime-search" className="sr-only">Search anime</label>
   <select
+    id="anime-status"
     value={statusFilter}
     onChange={(event) => setStatusFilter(event.target.value)}
     className="rounded border border-gray-300 bg-black/70 px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
@@ -37,7 +40,9 @@ function App() {
     <option value="Finished Airing">Finished Airing</option>
     <option value="Not yet aired">Not yet aired</option>
   </select>
+  <label htmlFor="anime-status" className="sr-only">Filter by status</label>
   <select
+    id="anime-season"
     value={selectedSeason}
     onChange={(event) => setSelectedSeason(event.target.value)}
     className="rounded border border-gray-300 bg-black/70 px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
@@ -48,13 +53,18 @@ function App() {
     <option value="summer">Summer</option>
     <option value="fall">Fall</option>
   </select>
+  <label htmlFor="anime-season" className="sr-only">Filter by season</label>
   {selectedSeason !== 'current' && (
+    <>
+      <label htmlFor="anime-year" className="sr-only">Filter by year</label>
     <input
+      id="anime-year"
       type="number"
       value={selectedYear}
       onChange={(event) => setSelectedYear(Number(event.target.value))}
       className="rounded border border-gray-300 bg-black px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
     />
+    </>
   )}
 </div>
     {loading && <p>Loading AnimeLense...</p>}
