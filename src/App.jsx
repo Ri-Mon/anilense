@@ -17,20 +17,20 @@ function App() {
   } = useAnimeExplorer()
 
   return (
-  <main>
+  <main className="mx-auto max-w-6xl px-4 py-6">
     <h1>AniLense</h1>
-    <div className="mb-6 flex flex-wrap gap-3">
+    <div className="sticky top-0 z-10 -mx-4 mb-6 flex flex-wrap gap-3 border-b border-gray-700 bg-transparent px-4 py-4 backdrop-blur">
   <input
     type="text"
     value={searchTerm}
     onChange={(event) => setSearchTerm(event.target.value)}
-    placeholder="Search anime"
-    className="flex-1 min-w-[200px] rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
+    placeholder="Search Anime"
+    className="flex-1 min-w-[200px] rounded border border-gray-300 bg-gray px-3 py-2 text-sm text-white placeholder:text-gray-400 focus:border-orange-500 focus:outline-none"
   />
   <select
     value={statusFilter}
     onChange={(event) => setStatusFilter(event.target.value)}
-    className="rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
+    className="rounded border border-gray-300 bg-black/70 px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
   >
     <option value="all">All</option>
     <option value="Currently Airing">Currently Airing</option>
@@ -40,7 +40,7 @@ function App() {
   <select
     value={selectedSeason}
     onChange={(event) => setSelectedSeason(event.target.value)}
-    className="rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
+    className="rounded border border-gray-300 bg-black/70 px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
   >
     <option value="current">Current Season</option>
     <option value="winter">Winter</option>
@@ -53,14 +53,14 @@ function App() {
       type="number"
       value={selectedYear}
       onChange={(event) => setSelectedYear(Number(event.target.value))}
-      className="w-24 rounded border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none"
+      className="rounded border border-gray-300 bg-black px-3 py-2 text-sm text-white focus:border-orange-500 focus:outline-none"
     />
   )}
 </div>
     {loading && <p>Loading AnimeLense...</p>}
     {error && <p>{error.message}</p>}
     {!loading && !error && data && (
-      <ul className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filteredData.map((anime) => (
           <li
   key={anime.mal_id}
@@ -73,7 +73,7 @@ function App() {
   />
   <div className="flex-1 space-y-2 bg-black p-4">
     <h2 className="text-lg font-medium text-white">
-      {anime.title}
+      {anime.title_english}
     </h2>
     <p className="text-sm text-gray-200">Status: {anime.status}</p>
     <p className="text-sm text-gray-200">
