@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Project docs
-src/assets/docs
+src/assets/docs/
